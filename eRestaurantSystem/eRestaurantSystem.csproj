@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\eRestaurantController.cs" />
-    <Compile Include="BusinessRuleException .cs" />
+    <Compile Include="BusinessRuleException.cs" />
     <Compile Include="DAL\eRestaurantContext.cs" />
     <Compile Include="DTOs\ReservationCollection.cs" />
     <Compile Include="POCOs\ReservationSummary.cs" />
