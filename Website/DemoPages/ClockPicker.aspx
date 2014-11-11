@@ -52,6 +52,17 @@
 </div>
     <div class="pull-right col-md-5">
     <details open> 
+        <asp:Panel ID="ReservationSeatingPanel" runat="server"><%--Visible='<%# ShowReservationSeating() %>'--%>
+            <asp:DropDownList ID="WaiterDropDownList" runat="server" CssClass="seating"
+                AppendDataBoundItems="true" DataSourceID="WaitersDataSource"
+                DataTextField="FullName" DataValueField="WaiterId">
+                <asp:listitem value="0">[select a waiter]</asp:listitem>
+            </asp:DropDownList>
+            <asp:ListBox ID="ReservationTableListBox" runat="server" CssClass="seating"                             
+                DataSourceID="AvailableSeatingObjectDataSource" SelectionMode="Multiple" Rows="14"
+                DataTextField="Table" DataValueField="Table">
+            </asp:ListBox>
+        </asp:Panel>
         <Strong>Today's Reservations</Strong>
         <asp:Repeater ID="ReservationsRepeater" runat="server"
             ItemType="eRestaurantSystem.DTOs.ReservationCollection" 
@@ -62,7 +73,8 @@
                     <h4><%# Item.SeatingTime %></h4>
                     <asp:ListView ID="ReservationSummaryListView" runat="server" 
                             ItemType="eRestaurantSystem.POCOs.ReservationSummary" 
-                        DataSource='<%# Item.Reservations %>'>
+                        DataSource='<%# Item.Reservations %>'
+                        OnItemCommand="ReservationSummaryListView_OnItemCommand">
                         <LayoutTemplate>
                             <div class="seating">
                                 <span runat="server" id="itemPlaceholder" />
@@ -74,6 +86,10 @@
                                 <%# Item.NumberinParty %> &mdash;
                                 <%# Item.Status %> &mdash;
                                 PH:&nbsp;<%# Item.Contact %>&mdash;
+                                <asp:LinkButton ID="InsertButton" runat="server" 
+                                    CommandName="Seat" 
+                                    CommandArgument='<%# Item.ID %>'>Reservation Seating
+                                    <span class="glyphicon glyphicon-plus"></span></asp:LinkButton>
                                
                             </div>
                         </ItemTemplate>
@@ -86,15 +102,31 @@
  </div> 
   
 
-      <asp:ObjectDataSource ID="ReservationsByTimeDataSource" 
-    runat="server" OldValuesParameterFormatString="original_{0}" 
-    SelectMethod="ReservationsByTime" 
-    TypeName="eRestaurantSystem.BLL.eRestaurantController">
-        <SelectParameters>
-            <asp:ControlParameter ControlID="SearchDate" 
-            Name="date" PropertyName="Text" Type="DateTime" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
+          <%--For the Waiter DropDown--%>
+            <asp:ObjectDataSource runat="server" ID="WaitersDataSource" 
+                OldValuesParameterFormatString="original_{0}" SelectMethod="ListWaiters" 
+                TypeName="eRestaurantSystem.BLL.eRestaurantController"></asp:ObjectDataSource>
+    
+          <%--For the Available Tables DropDown (seating reservation)--%>
+            <asp:ObjectDataSource runat="server" ID="AvailableSeatingObjectDataSource"
+                OldValuesParameterFormatString="original_{0}" SelectMethod="AvailableSeatingByDateTime" 
+                TypeName="eRestaurantSystem.BLL.eRestaurantController">
+                <selectparameters>
+                    <asp:controlparameter ControlID="SearchDate" PropertyName="Text" name="date"
+                        type="DateTime"></asp:controlparameter>
+                    <asp:controlparameter ControlID="SearchTime" PropertyName="Text" dbtype="Time" 
+                        name="time"></asp:controlparameter>
+                </selectparameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ReservationsByTimeDataSource" 
+                runat="server" OldValuesParameterFormatString="original_{0}" 
+                SelectMethod="ReservationsByTime" 
+                TypeName="eRestaurantSystem.BLL.eRestaurantController">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="SearchDate" 
+                        Name="date" PropertyName="Text" Type="DateTime" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
 
 <div class="col-md-7">
         <details open>

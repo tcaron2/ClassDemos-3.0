@@ -111,7 +111,7 @@ namespace eRestaurantSystem.BLL
                                  && data.ReservationStatus == "B"
                               select new POCOs.ReservationSummary
                               {
-                              
+                                  ID = data.ReservationID,
                                   Name = data.CustomerName,
                                   Date = data.ReservationDate,
                                   Status = data.ReservationStatus,
