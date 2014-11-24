@@ -5,20 +5,17 @@ using System.Web;
 using System;
 using Website;
 
+using eRestaurantSystem.Entities.Security;
+using eRestaurantSystem.BLL.Security;
 namespace Website
 {
     // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
 
 
 
+
     #region Helpers
-    public class UserManager : UserManager<ApplicationUser>
-    {
-        public UserManager()
-            : base(new UserStore<ApplicationUser>(new ApplicationDbContext()))
-        {
-        }
-    }
+
 }
 
 namespace Website

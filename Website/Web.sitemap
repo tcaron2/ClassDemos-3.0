@@ -22,6 +22,7 @@
         <siteMapNode url="~/DemoPages/CategoryMenuItemsReport.aspx" title="Category MenuItems Report" description=" Category MenuItems Report" />
       <siteMapNode url="~/DemoPages/TotalItemSalesByMenuCategory.aspx" title="Total Item Sales by Menu Category Report" description="Total Item Sales by Menu Category" />
           <siteMapNode url="~/DemoPages/ClockPicker.aspx" title="Clock Picker" description="Clock Picker" />
+        <siteMapNode url="~/DemoPages/Security/DefaultSecurity.aspx" title="Security" description="Security Page" />
       </siteMapNode>
       </siteMapNode>
 </siteMap>

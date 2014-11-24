@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 #region Additional Namespaces
 
 using eRestaurantSystem.Entities.Security;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 #endregion
 
